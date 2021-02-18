@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyAndroidCase</string>
+    <string name="main_act_buscando_lancamentos_msg">Buscando Lançamentos</string>
+    <string name="main_act_lancamentos_encontrados_msg">Lançamentos encontrados</string>
+</resources>
