@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.LancamentoDetalhes">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/act_lancamento_detalhes_til_origem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/act_lancamento_detalhes_et_origem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint"
+            android:text="Origem"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/act_lancamento_detalhes_til_categoria"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/act_lancamento_detalhes_til_origem"
+        app:layout_constraintStart_toStartOf="@+id/act_lancamento_detalhes_til_origem"
+        app:layout_constraintTop_toBottomOf="@+id/act_lancamento_detalhes_til_origem">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/act_lancamento_detalhes_et_categoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint"
+            android:text="Categoria"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/act_lancamento_detalhes_til_valor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/act_lancamento_detalhes_til_categoria"
+        app:layout_constraintStart_toStartOf="@+id/act_lancamento_detalhes_til_categoria"
+        app:layout_constraintTop_toBottomOf="@+id/act_lancamento_detalhes_til_categoria"
+        app:endIconDrawable="@drawable/ic_launcher_background"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/act_lancamento_detalhes_et_valor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint"
+            android:text="R$ 8.69"
+            android:inputType="none"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

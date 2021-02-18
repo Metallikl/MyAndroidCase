@@ -1,9 +1,12 @@
 package com.luche.myandroidcase.ui
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.luche.myandroidcase.R
@@ -17,7 +20,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private var listaLancamentos = mutableListOf<Lancamento>()
     private val lancamentoAdapter: LancamentoAdapter by lazy{
-        LancamentoAdapter(this, listaLancamentos)
+        LancamentoAdapter(
+            this,
+            listaLancamentos
+        ) { position, lancamento ->
+            trataCliqueLancamento(position,lancamento)
+        }
     }
     private val lancamentoRepository: LancamentoRepository by lazy{
         LancamentoRepository()
@@ -70,5 +78,34 @@ class MainActivity : AppCompatActivity() {
         binding.mainActRvLancamentos.addItemDecoration(divisor)
         binding.mainActRvLancamentos.adapter = lancamentoAdapter
         binding.mainActRvLancamentos.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun trataCliqueLancamento(position: Int, lancamento: Lancamento) {
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog
+            .setTitle("Detalhes do Lancamento")
+            .setMessage("Deseja ver os detalhes lançamento ?")
+            .setNegativeButton("Não",null)
+            .setPositiveButton("Sim")
+            { dialogInterface: DialogInterface, i: Int ->
+                chamaActLancamentoDetalhes(lancamento)
+            }
+        alertDialog.create().show()
+
+    }
+
+    private fun chamaActLancamentoDetalhes(lancamento: Lancamento) {
+        val intent = Intent(this,LancamentoDetalhes::class.java)
+        val bundle = Bundle()
+        bundle.putSerializable(LANCAMENTO_SAFE_PARAM,lancamento)
+        intent.putExtras(bundle)
+        startActivity(intent)
+        //Não matarei a tela incial, pois se não geraria uma nova chamada a API ou seria necessario
+        //persistir ou trafegar a lista via bundle.
+    }
+
+
+    companion object {
+        const val LANCAMENTO_SAFE_PARAM = "BUNDLE_PARAM_LANCAMENTO"
     }
 }

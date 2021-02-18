@@ -11,7 +11,7 @@ class LancamentoClient(
     private val service: LancamentoService = MyAndroidCaseRetrofit().lancamentoService
 ) {
 
-    private fun executaChamada(
+    /*private fun executaChamada(
         call: Call<List<Lancamento>>,
         sucessCallback: (listaLancamentos: List<Lancamento>?) -> Unit,
         failCallback : (msgErro: String?) -> Unit
@@ -33,13 +33,13 @@ class LancamentoClient(
             }
 
         })
-    }
+    }*/
 
     fun buscaLancamentos(
         sucessCallback: (listaLancamentos: List<Lancamento>?) -> Unit,
         failCallback : (msgErro: String?) -> Unit
     ){
-        executaChamada(
+        MyAndroidCaseRetrofit().executaChamada(
             service.getLancamentos(),
             sucessCallback,
             failCallback
