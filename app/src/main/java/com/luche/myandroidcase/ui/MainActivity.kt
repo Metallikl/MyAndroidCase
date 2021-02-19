@@ -14,6 +14,7 @@ import com.luche.myandroidcase.adapter.LancamentoAdapter
 import com.luche.myandroidcase.databinding.ActivityMainBinding
 import com.luche.myandroidcase.model.Lancamento
 import com.luche.myandroidcase.repository.LancamentoRepository
+import com.luche.myandroidcase.retrofit.webclient.LancamentoClient
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private val lancamentoRepository: LancamentoRepository by lazy{
-        LancamentoRepository()
+        LancamentoRepository(LancamentoClient())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,8 +75,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun iniRecycle() {
-        val divisor = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-        binding.mainActRvLancamentos.addItemDecoration(divisor)
+        /*val divisor = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+        binding.mainActRvLancamentos.addItemDecoration(divisor)*/
         binding.mainActRvLancamentos.adapter = lancamentoAdapter
         binding.mainActRvLancamentos.layoutManager = LinearLayoutManager(this)
     }
@@ -90,6 +91,7 @@ class MainActivity : AppCompatActivity() {
             { dialogInterface: DialogInterface, i: Int ->
                 chamaActLancamentoDetalhes(lancamento)
             }
+        //
         alertDialog.create().show()
 
     }

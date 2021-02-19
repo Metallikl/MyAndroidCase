@@ -8,7 +8,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act_lancamento_detalhes_til_origem"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -16,15 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/act_lancamento_detalhes_et_origem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"
-            android:text="Origem"
-            android:inputType="none"
+            android:hint="Origem"
+            android:text="UBER"
+            android:clickable="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,17 +39,36 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/act_lancamento_detalhes_til_origem"
         app:layout_constraintStart_toStartOf="@+id/act_lancamento_detalhes_til_origem"
-        app:layout_constraintTop_toBottomOf="@+id/act_lancamento_detalhes_til_origem">
+        app:layout_constraintTop_toBottomOf="@+id/act_lancamento_detalhes_til_origem"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/act_lancamento_detalhes_et_categoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"
-            android:text="Categoria"
-            android:inputType="none"
+            android:hint="Categoria"
+            tools:text="Transporte"
+            android:clickable="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
             />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/act_lancamento_detalhes_pb_categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="@+id/act_lancamento_detalhes_til_categoria"
+        app:layout_constraintEnd_toEndOf="@+id/act_lancamento_detalhes_til_categoria"
+        app:layout_constraintTop_toTopOf="@+id/act_lancamento_detalhes_til_categoria"
+        android:indeterminateTint="@android:color/holo_orange_dark"
+        android:visibility="gone"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act_lancamento_detalhes_til_valor"
@@ -55,16 +78,19 @@
         app:layout_constraintEnd_toEndOf="@+id/act_lancamento_detalhes_til_categoria"
         app:layout_constraintStart_toStartOf="@+id/act_lancamento_detalhes_til_categoria"
         app:layout_constraintTop_toBottomOf="@+id/act_lancamento_detalhes_til_categoria"
-        app:endIconDrawable="@drawable/ic_launcher_background"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/act_lancamento_detalhes_et_valor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"
-            android:text="R$ 8.69"
-            android:inputType="none"
+            android:hint="Valor"
+            tools:text="R$ 8.69"
+            android:clickable="false"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
             />
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

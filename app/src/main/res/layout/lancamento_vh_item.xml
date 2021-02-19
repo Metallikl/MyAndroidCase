@@ -1,63 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    >
 
-    <ImageView
-        android:id="@+id/lancamento_item_iv_origem"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/lancamento_item_tv_origem"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/lancamento_item_tv_origem"
-        app:srcCompat="@drawable/ic_baseline_input_24"
-        />
+        >
+        <ImageView
+            android:id="@+id/lancamento_item_iv_origem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/lancamento_item_tv_origem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lancamento_item_tv_origem"
+            app:srcCompat="@drawable/ic_baseline_input_24"
+            />
 
-    <TextView
-        android:id="@+id/lancamento_item_tv_origem"
-        android:layout_width="0dp"
-        app:layout_constraintWidth_default="wrap"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:padding="8dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/lancamento_item_iv_origem"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Loja" />
+        <TextView
+            android:id="@+id/lancamento_item_tv_origem"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_default="wrap"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/lancamento_item_iv_origem"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Loja" />
 
-    <TextView
-        android:id="@+id/lancamento_item_tv_valor"
-        android:layout_width="0dp"
-        app:layout_constraintWidth_default="wrap"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:padding="8dp"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_orange_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/lancamento_item_iv_valor"
-        app:layout_constraintTop_toBottomOf="@id/lancamento_item_tv_origem"
-        tools:text="R$ 8,66" />
+        <TextView
+            android:id="@+id/lancamento_item_tv_valor"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_default="wrap"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_orange_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/lancamento_item_iv_valor"
+            app:layout_constraintTop_toBottomOf="@id/lancamento_item_tv_origem"
+            tools:text="R$ 8,66" />
 
-    <ImageView
-        android:id="@+id/lancamento_item_iv_valor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/lancamento_item_tv_valor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/lancamento_item_tv_valor"
-        app:srcCompat="@drawable/ic_baseline_monetization_on_24"
-        android:tint="@android:color/holo_orange_dark"
-        />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/lancamento_item_iv_valor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/lancamento_item_tv_valor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lancamento_item_tv_valor"
+            app:srcCompat="@drawable/ic_baseline_monetization_on_24"
+            android:tint="@android:color/holo_orange_dark"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
