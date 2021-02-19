@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.luche.myandroidcase.R
 import com.luche.myandroidcase.databinding.ActivityLancamentoDetalhesBinding
 import com.luche.myandroidcase.extensions.getFormattedDecimal
 import com.luche.myandroidcase.model.Lancamento
@@ -57,7 +58,7 @@ class LancamentoDetalhes : AppCompatActivity() {
 
     private fun setaUiCarregando(ativo: Boolean) {
         if(ativo) {
-            binding.actLancamentoDetalhesEtCategoria.setText("Buscando")
+            binding.actLancamentoDetalhesEtCategoria.setText(getString(R.string.lancamento_detalhes_act_bucando_lbl))
             binding.actLancamentoDetalhesPbCategoria.visibility = View.VISIBLE
         } else{
             binding.actLancamentoDetalhesPbCategoria.visibility = View.GONE
