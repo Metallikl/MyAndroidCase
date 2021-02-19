@@ -47,7 +47,7 @@ class LancamentoAdapter(
         this.lancamentos.clear()
         this.lancamentos.addAll(listaLancamentos)
         this.lancamentosFiltrados.clear()
-        this.lancamentosFiltrados = lancamentos
+        this.lancamentosFiltrados.addAll(lancamentos)
         notifyDataSetChanged()
     }
 

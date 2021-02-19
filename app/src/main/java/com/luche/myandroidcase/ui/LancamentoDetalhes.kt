@@ -31,9 +31,18 @@ class LancamentoDetalhes : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLancamentoDetalhesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.actLancamentoDetalhesToolbar.root)
+        setaToolbarLayout()
         //
         setaValores()
 
+    }
+
+    private fun setaToolbarLayout() {
+        binding.actLancamentoDetalhesToolbar.toolbarTvTtl.text = getString(R.string.lancamento_detalhe_act_ttl)
+        binding.actLancamentoDetalhesToolbar.toolbarGdStart.visibility = View.GONE
+        binding.actLancamentoDetalhesToolbar.toolbarTvBalancoVal.visibility = View.GONE
+        binding.actLancamentoDetalhesToolbar.toolbarTvBalancoLbl.visibility = View.GONE
     }
 
     private fun setaValores() {

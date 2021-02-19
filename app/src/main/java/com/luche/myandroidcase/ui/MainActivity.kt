@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.luche.myandroidcase.R
 import com.luche.myandroidcase.adapter.LancamentoAdapter
@@ -21,6 +22,9 @@ import com.luche.myandroidcase.extensions.getFormattedDecimal
 import com.luche.myandroidcase.model.Lancamento
 import com.luche.myandroidcase.repository.LancamentoRepository
 import com.luche.myandroidcase.retrofit.webclient.LancamentoClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -32,17 +36,21 @@ class MainActivity : AppCompatActivity() {
         LancamentoAdapter(
             this,
             listaLancamentos,
-         { position, lancamento ->
-            trataCliqueLancamento(position,lancamento)
-        },
-        { lancamentosDoMes ->
-            calculaBalanco(lancamentosDoMes)
-        }
+             { position, lancamento ->
+                trataCliqueLancamento(position,lancamento)
+            },
+            { lancamentosDoMes ->
+                calculaBalanco(lancamentosDoMes)
+            }
         )
     }
 
-    private val lancamentoRepository: LancamentoRepository by lazy{
-        LancamentoRepository(LancamentoClient())
+    private val viewModel : MainActivityViewModel by lazy{
+        ViewModelProvider(this,
+            MainActivityViewModel.MainActivityViewModelFactory(
+                LancamentoRepository(LancamentoClient())
+            )
+        ).get(MainActivityViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,10 +58,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.mainActToolbar.root)
+        setaLiveDataObserble()
         setaBuscaUI(true)
         buscaLancamentos()
         iniRecycle()
         iniSpinner()
+    }
+
+    private fun setaLiveDataObserble() {
+        viewModel.listaLancamentosLiveData.observe(
+            this,
+            androidx.lifecycle.Observer {
+                it?.let {
+                    lancamentoAdapter.atualizaLista(it)
+                    aplicaFiltroMesAtual()
+                }
+                setaBuscaUI(false)
+                setaBtnBusca(false)
+            }
+        )
     }
 
     private fun iniSpinner() {
@@ -61,24 +84,27 @@ class MainActivity : AppCompatActivity() {
         val mAdapter = ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,listaMes)
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.mainActSpMes.adapter = mAdapter
-        binding.mainActSpMes.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        binding.mainActSpMes.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.atualizaIdxSpinner(position)
                 lancamentoAdapter?.filter.filter("${position + 1}")
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 lancamentoAdapter?.filter.filter("")
             }
-
         }
     }
 
     private fun setaBuscaUI(buscaAtiva: Boolean) {
         if(buscaAtiva){
-            binding.mainActTvLbl.text = getString(R.string.main_act_buscando_lancamentos_msg)
             binding.mainActPbLoading.visibility =  View.VISIBLE
         }else{
-            binding.mainActTvLbl.text = getString(R.string.main_act_lancamentos_encontrados_msg)
             binding.mainActPbLoading.visibility =  View.GONE
             setaMensagemNenhumDadoEncontrado(false)
         }
@@ -86,33 +112,37 @@ class MainActivity : AppCompatActivity() {
 
     //TODO VIEWMODEL
     private fun buscaLancamentos() {
+        viewModel.buscaLancamentos {
+            setaBuscaUI(false)
+            setaBtnBusca(true)
+            Toast.makeText(
+                this@MainActivity,
+                it,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        //
+        //setaBuscaUI(false)
+    }
 
-        lancamentoRepository.buscaLancamentos(
-            {
-                it?.let {
-                    listaLancamentos = it as MutableList<Lancamento>
-                    listaLancamentos.sortBy { lancamento ->
-                        lancamento.mes_lancamento
-                    }
-                    lancamentoAdapter.atualizaLista(listaLancamentos)
-                    aplicaFiltroMesAtual()
-                }
-                setaBuscaUI(false)
-            },
-            {
-                Toast.makeText(
-                    this,
-                    it,
-                    Toast.LENGTH_SHORT
-                ).show()
-                setaBuscaUI(false)
+    private fun setaBtnBusca(exibe: Boolean) {
+        binding.mainActBtnBusca.visibility =
+            if(exibe){
+                binding.mainActBtnBusca.setOnClickListener(View.OnClickListener {
+                    setaBuscaUI(true)
+                    buscaLancamentos()
+                })
+                //
+                View.VISIBLE
+            }else{
+                View.GONE
             }
-        )
     }
 
     private fun aplicaFiltroMesAtual() {
-        val posicaoMes = Date().month
-        binding.mainActSpMes.setSelection(posicaoMes)
+        val posicao = viewModel.spinnerIdx
+        //
+        binding.mainActSpMes.setSelection(posicao)
     }
 
     private fun iniRecycle() {
@@ -138,18 +168,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculaBalanco(lancamentosDoMes: List<Lancamento>) {
-        var somaBalanco =
-                if(lancamentosDoMes.isNotEmpty()) {
+        var somaBalanco = viewModel.calculaBalanco(lancamentosDoMes)
+                if(somaBalanco > BigDecimal.ZERO) {
                     setaMensagemNenhumDadoEncontrado(false)
-                    lancamentosDoMes.sumByDouble {
-                        it.valor.toDouble()
-                    }
                 }else{
                     setaMensagemNenhumDadoEncontrado(true)
-                    0.toDouble()
                 }
-        //
-        binding.mainActToolbar.toolbarTvBalancoVal.text = BigDecimal(somaBalanco).getFormattedDecimal()
+                //
+        binding.mainActToolbar.toolbarTvBalancoVal.text = somaBalanco.getFormattedDecimal()
     }
 
     private fun setaMensagemNenhumDadoEncontrado(exibeMsg: Boolean) {

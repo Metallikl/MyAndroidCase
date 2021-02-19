@@ -12,6 +12,7 @@
     <string name="generic_valor_lbl">Valor</string>
     <string name="main_act_nenhum_resultado_msg">Nenhum lancamento encontrado !</string>
     <string name="generic_balanco_lbl">Balanço</string>
+    <string name="lancamento_detalhe_act_ttl">Detalhes Lançamento</string>
 
     <string-array name="mounths">
         <item>Janeiro</item>

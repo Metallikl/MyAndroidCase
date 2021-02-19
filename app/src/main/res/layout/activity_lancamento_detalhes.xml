@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.LancamentoDetalhes">
 
+    <include
+        android:id="@+id/act_lancamento_detalhes_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/toolbar"
+        />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/act_lancamento_detalhes_til_origem"
         android:layout_width="0dp"
@@ -15,7 +25,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/act_lancamento_detalhes_toolbar"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
 

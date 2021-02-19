@@ -11,11 +11,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+
+        <TextView
+            android:id="@+id/toolbar_tv_ttl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_default="wrap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/toolbar_gd_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:text="Meus Lancamentos"
+            />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/toolbar_gd_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.2"
+            app:layout_constraintGuide_percent="0.7"
             android:orientation="vertical"
             />
 
